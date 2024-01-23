@@ -2,6 +2,7 @@
 # define PUSH_SWAP_H
 
 #include <../libft/libft.h>
+
 typedef struct	s_Dlist_node
 {
 	int	value;
@@ -15,6 +16,23 @@ typedef struct	s_Dlist
 	struct s_Dlist_node *first;
 	struct s_Dlist_node *last;
 }				t_Dlist;
+
+typedef struct	s_index
+{
+	int	i;
+	int	j;
+}				t_index;
+
+typedef struct	s_median
+{
+	int	first;
+	int	last;
+	int	mid1;
+	int	res;
+	int	tmp;
+	int	tmpfind;
+	int	find;
+}				t_median;
 
 void	sa(t_Dlist *lstA);
 void	sb(t_Dlist *lstB);

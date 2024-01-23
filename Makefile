@@ -1,8 +1,8 @@
-NAME = exe
+NAME = push_swap
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -g
 
 SRC =	src/main.c \
 		src/utils.c \

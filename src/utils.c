@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:29:43 by evella            #+#    #+#             */
-/*   Updated: 2024/01/19 13:40:27 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/23 10:35:24 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_print_lst(t_Dlist *lstA, t_Dlist *lstB)
 			nodeB = nodeB->next;
 		}
 	}
+	printf("\n\n");
 }
 
 void	ft_del_front(t_Dlist *lst)
