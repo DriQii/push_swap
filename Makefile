@@ -6,6 +6,8 @@ CFLAGS = -Wall -Wextra -g
 
 SRC =	src/main.c \
 		src/utils.c \
+		src/amoove.c \
+		src/bmoove.c \
 		src/lst_init.c \
 		src/instructions1.c \
 		src/instructions2.c \

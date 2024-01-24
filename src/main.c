@@ -6,96 +6,42 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:27:55 by evella            #+#    #+#             */
-/*   Updated: 2024/01/23 11:06:31 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/24 21:29:42 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void ft_tri3(t_Dlist *lstA)
+void ft_tri3(t_Dlist *lstA , int *count)
 {
 	if (lstA->first->value > lstA->first->next->value
 	&& lstA->first->next->value > lstA->first->next->next->value)
 	{
-		sa(lstA);
-		rra(lstA);
+		sa(lstA, 1);
+		rra(lstA, 1);
+		*count += 1;
 	}
 	else if (lstA->first->value > lstA->first->next->value
 	&& lstA->first->next->value < lstA->first->next->next->value
-	&& lstA->first->next->next->value > lstA->first->next->value)
-		sa(lstA);
+	&& lstA->first->next->next->value > lstA->first->value)
+		sa(lstA, 1);
 	else if (lstA->first->value > lstA->first->next->value
 	&& lstA->first->next->value < lstA->first->next->next->value
-	&& lstA->first->next->next->value < lstA->first->next->value)
-		ra(lstA);
+	&& lstA->first->next->next->value < lstA->first->value)
+		ra(lstA, 1);
 	else if (lstA->first->value < lstA->first->next->value
 	&& lstA->first->next->value > lstA->first->next->next->value
-	&& lstA->first->next->next->value > lstA->first->next->value)
+	&& lstA->first->next->next->value > lstA->first->value)
 	{
-		sa(lstA);
-		ra(lstA);
+		sa(lstA, 1);
+		ra(lstA, 1);
+		*count += 1;
 	}
 	else if (lstA->first->value < lstA->first->next->value
 	&& lstA->first->next->value > lstA->first->next->next->value
-	&& lstA->first->next->next->value < lstA->first->next->value)
-		rra(lstA);
-}
-
-
-void	ft_find_median_node(t_Dlist_node *node, t_median *median)
-{
-	while (node)
-	{
-		median->tmpfind = median->res - median->find;
-		if(median->tmpfind < 0)
-			median->tmpfind *= -1;
-		median->tmp = median->res - node->value;
-		if(median->tmp < 0)
-			median->tmp *= -1;
-		if(median->tmp < median->tmpfind)
-			median->find = node->value;
-		node = node->next;
-	}
-}
-
-int	ft_find_median(t_Dlist *lst)
-{
-	t_Dlist_node	*node;
-	t_median		median;
-	int				i;
-
-	i = 0;
-	node = lst->first;
-	median.first = lst->first->value;
-	median.last = lst->last->value;
-	median.find = lst->first->value;
-	if(lst->len > 7)
-	{
-		while (i++ < lst->len / 4)
-			node = node->next;
-		median.mid1 = node->value;
-		while (i++ < (lst->len / 4) * 2)
-			node = node->next;
-		median.mid1 +=node->value;
-		while (i++ < (lst->len / 4 * 3))
-			node = node->next;
-		median.mid1 += node->value;
-	}
-	else if (lst->len > 3)
-	{
-		while (i++ < lst->len / 2)
-			node = node->next;
-		median.mid1 = node->value * 3;
-
-	}
-	else if(lst->len > 1)
-		median.mid1 = node->next->value * 3;
-
-	//printf("\n\n calc [%d]\n\n", (median.first + median.first + median.mid1 + 5) / 5);
-	median.res = (median.first + median.first + median.mid1) / 5;
-	node = lst->first;
-	ft_find_median_node(node, &median);
-	return (median.find);
+	&& lstA->first->next->next->value < lstA->first->value)
+		rra(lstA, 1);
+	*count += 1;
 }
 
 int	ft_check_tri(t_Dlist *lstA)
@@ -130,90 +76,116 @@ int	ft_check_tri_rev(t_Dlist *lstB)
 	return(1);
 }
 
-void	ft_split_lstA(t_Dlist *lstA, t_Dlist *lstB)
+t_op	ft_check_nb_moove(int current, int target, int lstlen, int lst_target_len)
 {
-	int				median;
-	int				len;
+	t_op	op;
 
-	len = lstA->len;
-	median = ft_find_median(lstA);
-	while(len != 1 && !ft_check_tri(lstA))
-	{
-		ft_print_lst(lstA, lstB);
-		printf("\nlen = %d\n", lstA->len);
-		if (lstA->len == 3)
-			ft_tri3(lstA);
-		else if(lstA->len > 3)
-		{
-			/* if(lstA->first->next->value < lstA->first->value)
-					sa(lstA); */
-			if(lstA->first->value < median)
-				pb(lstA, lstB);
-			else
-				ra(lstA);
-			len--;
-		}
+	op.r_current = 0;
+	op.rr_current = 0;
+	op.r_target = 0;
+	op.rr_target = 0;
+	op.target = target;
+	op.current = current;
+	if (current <= lstlen / 2)
+		op.r_current = current - 1;
+	else
+		op.rr_current = lstlen - current + 1;
+	if (target <= lst_target_len / 2)
+		op.r_target = target - 1;
+	else
+		op.rr_target = lst_target_len - target + 1;
+	//printf("nb op ra %d rra %d rb %d rrb %d = %d\n", op.r_current, op.rr_current, op.r_target, op.rr_target, op.r_current + op.r_target + op.rr_current + op.rr_target);
+	op.total = op.r_current + op.r_target + op.rr_current + op.rr_target;
 
-
-		//printf("\nmedian%d\n", median);
-	}
+	return (op);
 }
 
-void	ft_split_lstB(t_Dlist *lstA, t_Dlist *lstB)
+/* void	ft_merge(t_Dlist *lstA, t_Dlist *lstB, int *count)
+{
+	int	i;
+	int	max;
+	t_Dlist_node *node;
+
+	node = lstB->first;
+	max = 0;
+	i = 0;
+
+	while (node)
+	{
+		if(node->value > max)
+			max = node->value;
+		node = node->next;
+		pa(lstA, lstB);
+		*count += 1;
+	}
+	while (lstA->last->value != max)
+	{
+		ra(lstA);
+		*count += 1;
+	}
+
+} */
+
+void	ft_turk_algo(t_Dlist *lstA, t_Dlist *lstB, int *count)
 {
 	t_Dlist_node	*node;
-	int				median;
-	int				len;
+	t_op				moove;
+	t_op				tmpmoove;
+	int					i;
 
-	len = lstB->len;
-	node = lstB->first;
-	median = ft_find_median(lstB);
 
-	while(len != 0)
+	i = 2;
+	pb(lstA, lstB);
+	pb(lstA, lstB);
+	*count += 2;
+	while (lstA->len > 3)
 	{
-		if(lstB->first->value >= median)
-			pa(lstA, lstB);
-		else
-			rb(lstB);
-		len--;
+		node = lstA->first->next;
+		moove = ft_check_nb_moove(1, ft_find_target(lstA->first->value, lstB), lstA->len, lstB->len);
+
+		while(node)
+		{
+			tmpmoove = ft_check_nb_moove(i, ft_find_target(node->value, lstB), lstA->len, lstB->len);
+			if(tmpmoove.total < moove.total)
+				moove = tmpmoove;
+			node = node->next;
+			i++;
+		}
+		i = 2;
+		ft_pushA(lstA, lstB, moove, count);
 	}
-	if(lstB->len <= 2 && lstB->len != 0)
-	{
-		/* if(lstB->first->next)
-			if(lstB->first->next->value > lstB->first->value)
-					sb(lstB); */
-		pa(lstA, lstB);
-	}
-	printf("b len %d\n", lstB->len);
 }
 
 int	main(int argc, char **argv)
 {
 	t_Dlist *lstA;
 	t_Dlist *lstB;
+	static int count;
 
+	count = 0;
 	lstA = ft_new_list();
 	lstB = ft_new_list();
-	ft_init_a(lstA, argc, argv);
- 	/* while(!ft_check_tri(lstA))
-	{
-		while (lstA->len > 1 && !ft_check_tri(lstA))
-			ft_split_lstA(lstA, lstB);
-		while (lstB->len > 1 && ft_check_tri_rev(lstB))
-			ft_split_lstB(lstA, lstB);
-		ft_join_lst(lstA, lstB);
-	} */
+	if (!ft_init_a(lstA, argc, argv))
+		return(0);
+	if(ft_check_tri(lstA))
+		return (0);
 	//ft_print_lst(lstA, lstB);
-	 while(!ft_check_tri(lstA))
+	if (lstA->len <= 3)
 	{
-		while(lstA->len > 1 && !ft_check_tri(lstA))
-			ft_split_lstA(lstA, lstB);
-		while(lstB->len != 0)
-			ft_split_lstB(lstA, lstB);
-		//ft_print_lst(lstA, lstB);
+		if(lstA->len == 2)
+			sa(lstA, 1);
+		else
+			ft_tri3(lstA, &count);
+	}
+	else
+	{
+		ft_turk_algo(lstA, lstB, &count);
+		ft_tri3(lstA, &count);
+		ft_merge(lstA, lstB, &count);
 	}
 	//ft_print_lst(lstA, lstB);
-
+	//printf("count = %d\n", count);
+	//printf("%d\n", ft_check_tri(lstA));
 }
 
 
