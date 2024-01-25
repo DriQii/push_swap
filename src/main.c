@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:27:55 by evella            #+#    #+#             */
-/*   Updated: 2024/01/24 21:29:42 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/26 00:12:17 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,41 +94,30 @@ t_op	ft_check_nb_moove(int current, int target, int lstlen, int lst_target_len)
 		op.r_target = target - 1;
 	else
 		op.rr_target = lst_target_len - target + 1;
-	//printf("nb op ra %d rra %d rb %d rrb %d = %d\n", op.r_current, op.rr_current, op.r_target, op.rr_target, op.r_current + op.r_target + op.rr_current + op.rr_target);
-	op.total = op.r_current + op.r_target + op.rr_current + op.rr_target;
-
+	if(target - 1 < (op.r_current + op.rr_target))
+	{
+		op.r_target = target - 1;
+		op.rr_target = 0;
+	}
+	else if(current - 1 < (op.rr_current + op.r_target))
+	{
+		op.r_current = current - 1;
+		op.rr_current = 0;
+	}
+	if(op.r_current > op.r_target)
+		op.total = op.r_current;
+	else
+		op.total = op.r_target;
+	if(op.rr_current > op.rr_target)
+		op.total += op.rr_current;
+	else
+		op.total += op.rr_target;
 	return (op);
 }
 
-/* void	ft_merge(t_Dlist *lstA, t_Dlist *lstB, int *count)
-{
-	int	i;
-	int	max;
-	t_Dlist_node *node;
-
-	node = lstB->first;
-	max = 0;
-	i = 0;
-
-	while (node)
-	{
-		if(node->value > max)
-			max = node->value;
-		node = node->next;
-		pa(lstA, lstB);
-		*count += 1;
-	}
-	while (lstA->last->value != max)
-	{
-		ra(lstA);
-		*count += 1;
-	}
-
-} */
-
 void	ft_turk_algo(t_Dlist *lstA, t_Dlist *lstB, int *count)
 {
-	t_Dlist_node	*node;
+	t_Dlist_node		*node;
 	t_op				moove;
 	t_op				tmpmoove;
 	int					i;
