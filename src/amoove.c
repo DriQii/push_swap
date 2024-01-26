@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:04:45 by evella            #+#    #+#             */
-/*   Updated: 2024/01/25 21:07:32 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/26 14:10:38 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_last_rotate(t_Dlist *lstA, int *count)
 	}
 	while (lstA->last->value != max)
 	{
-		if(target < lstA->len / 2)
+		if(target <= lstA->len / 2)
 			ra(lstA, 1);
 		else
 			rra(lstA, 1);

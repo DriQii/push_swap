@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:27:55 by evella            #+#    #+#             */
-/*   Updated: 2024/01/26 00:12:17 by evella           ###   ########.fr       */
+/*   Updated: 2024/01/26 21:53:17 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,12 @@ int	ft_check_tri_rev(t_Dlist *lstB)
 t_op	ft_check_nb_moove(int current, int target, int lstlen, int lst_target_len)
 {
 	t_op	op;
+	int		count;
+	int		state;
+	int		tmp;
 
+	state = -1;
+	count = 0;
 	op.r_current = 0;
 	op.rr_current = 0;
 	op.r_target = 0;
@@ -94,8 +99,86 @@ t_op	ft_check_nb_moove(int current, int target, int lstlen, int lst_target_len)
 		op.r_target = target - 1;
 	else
 		op.rr_target = lst_target_len - target + 1;
-	if(target - 1 < (op.r_current + op.rr_target))
+	tmp = op.r_current + op.rr_target + op.rr_current + op.r_target;
+	if((target - 1) < tmp && op.rr_current == 0)
 	{
+		count = target - 1;
+		state = 1;
+	}
+	if (lst_target_len - target + 1 < tmp && op.r_current == 0)
+	{
+		if (state != -1)
+		{
+			if(lst_target_len - target + 1 < count)
+			{
+				count = lst_target_len - target + 1;
+				state = 2;
+			}
+		}
+		else
+		{
+			count = lst_target_len - target + 1;
+			state = 2;
+		}
+	}
+	if (current - 1 < tmp && op.rr_target == 0)
+	{
+		if (state != -1)
+		{
+			if(current - 1 < count)
+			{
+				count = current - 1;
+				state = 3;
+			}
+		}
+		else
+		{
+			count = current - 1;
+			state = 3;
+		}
+	}
+	if (lstlen - current + 1 < tmp && op.r_target == 0)
+	{
+		if (state != -1)
+		{
+			if(lstlen - current + 1 < count)
+				state = 4;
+		}
+		else
+			state = 4;
+	}
+	if (state == 1)
+	{
+		op.r_target = target - 1;
+		op.r_current = current - 1;
+		op.rr_target = 0;
+		op.rr_current = 0;
+	}
+	else if (state == 2)
+	{
+		op.rr_current = lstlen - current + 1;
+		op.rr_target = lst_target_len - target + 1;
+		op.r_current = 0;
+		op.r_target = 0;
+	}
+	else if (state == 3)
+	{
+		op.r_current = current - 1;
+		op.r_target = target - 1;
+		op.rr_current = 0;
+		op.rr_target = 0;
+	}
+	else if (state == 4)
+	{
+		op.rr_target = lst_target_len - target + 1;
+		op.rr_current = lstlen - current + 1;
+		op.r_target = 0;
+		op.r_current = 0;
+	}
+
+	/* if(target - 1 < (op.r_current + op.rr_target))
+	{
+
 		op.r_target = target - 1;
 		op.rr_target = 0;
 	}
@@ -103,7 +186,7 @@ t_op	ft_check_nb_moove(int current, int target, int lstlen, int lst_target_len)
 	{
 		op.r_current = current - 1;
 		op.rr_current = 0;
-	}
+	} */
 	if(op.r_current > op.r_target)
 		op.total = op.r_current;
 	else
