@@ -6,11 +6,11 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:28:01 by evella            #+#    #+#             */
-/*   Updated: 2024/02/08 20:25:48 by evella           ###   ########.fr       */
+/*   Updated: 2024/02/08 20:49:53 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
 t_Dlist	*ft_new_list(void)
 {

@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:27:55 by evella            #+#    #+#             */
-/*   Updated: 2024/02/08 03:25:01 by evella           ###   ########.fr       */
+/*   Updated: 2024/02/08 21:09:33 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,17 +125,14 @@ int	main(int argc, char **argv)
 		return (0);
 	if (ft_check_tri(lsts.lst_a))
 		return (0);
-	if (lsts.lst_a->len <= 3)
-	{
-		if (lsts.lst_a->len == 2)
-			sa(lsts.lst_a, 1);
-		else
-			ft_tri3(lsts.lst_a, &count);
-	}
+	if (lsts.lst_a->len <= 4)
+		ft_tri4(&lsts, &count);
 	else
 	{
 		ft_turk_algo(lsts.lst_a, lsts.lst_b, &count);
 		ft_tri3(lsts.lst_a, &count);
 		ft_merge(lsts.lst_a, lsts.lst_b, &count);
 	}
+	ft_freelst(lsts.lst_a);
+	free(lsts.lst_b);
 }

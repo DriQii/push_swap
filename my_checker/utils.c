@@ -6,11 +6,11 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:29:43 by evella            #+#    #+#             */
-/*   Updated: 2024/02/08 21:09:57 by evella           ###   ########.fr       */
+/*   Updated: 2024/02/08 20:49:39 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
 void	ft_del_front(t_Dlist *lst)
 {
@@ -83,17 +83,4 @@ void	*ft_freetabtab(char **tab)
 	free(tab[i]);
 	free (tab);
 	return (NULL);
-}
-
-void	ft_freelst(t_Dlist *lst)
-{
-	t_Dlist_node	*tmp;
-
-	while (lst->first)
-	{
-		tmp = lst->first;
-		lst->first = lst->first->next;
-		free(tmp);
-	}
-	free(lst);
 }

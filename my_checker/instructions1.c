@@ -6,13 +6,13 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:27:58 by evella            #+#    #+#             */
-/*   Updated: 2024/02/08 20:52:23 by evella           ###   ########.fr       */
+/*   Updated: 2024/02/08 20:56:35 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "checker.h"
 
-void	sa(t_Dlist *lst_a, int print)
+void	sa(t_Dlist *lst_a)
 {
 	t_Dlist_node	*tmp;
 
@@ -26,11 +26,9 @@ void	sa(t_Dlist *lst_a, int print)
 		lst_a->first->back = tmp;
 		lst_a->first = tmp;
 	}
-	if (print == 1)
-		ft_putstr("sa\n");
 }
 
-void	sb(t_Dlist *lst_b, int print)
+void	sb(t_Dlist *lst_b)
 {
 	t_Dlist_node	*tmp;
 
@@ -44,8 +42,6 @@ void	sb(t_Dlist *lst_b, int print)
 		lst_b->first->back = tmp;
 		lst_b->first = tmp;
 	}
-	if (print == 1)
-		ft_putstr("sb\n");
 }
 
 void	pa(t_Dlist *lst_a, t_Dlist *lst_b)
@@ -55,7 +51,6 @@ void	pa(t_Dlist *lst_a, t_Dlist *lst_b)
 		ft_add_front(lst_a, lst_b->first->value);
 		ft_del_front(lst_b);
 	}
-	ft_putstr("pa\n");
 }
 
 void	pb(t_Dlist *lst_a, t_Dlist *lst_b)
@@ -65,5 +60,4 @@ void	pb(t_Dlist *lst_a, t_Dlist *lst_b)
 		ft_add_front(lst_b, lst_a->first->value);
 		ft_del_front(lst_a);
 	}
-	ft_putstr("pb\n");
 }

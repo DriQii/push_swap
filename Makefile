@@ -33,10 +33,15 @@ $(NAME) : $(OBJ)
 
 clean :
 	make clean -C libft
+	make clean -C my_checker
 	rm -rf $(OBJDIR)$(OBJ)
 
 fclean : clean
 	make fclean -C libft
+	make fclean -C my_checker
 	rm -rf $(NAME)
 
 re : fclean all
+
+bonus :
+	make -C my_checker
