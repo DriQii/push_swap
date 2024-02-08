@@ -9,6 +9,8 @@ SRC =	src/main.c \
 		src/amoove.c \
 		src/bmoove.c \
 		src/lst_init.c \
+		src/check_moove.c \
+		src/check_moove_2.c \
 		src/instructions1.c \
 		src/instructions2.c \
 		src/instructions3.c \

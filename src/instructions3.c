@@ -6,29 +6,29 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:28:12 by evella            #+#    #+#             */
-/*   Updated: 2024/01/24 21:31:44 by evella           ###   ########.fr       */
+/*   Updated: 2024/02/07 19:38:06 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ss(t_Dlist *lstA, t_Dlist *lstB)
+void	ss(t_Dlist *lst_a, t_Dlist *lst_b)
 {
-	sa(lstA, 0);
-	sb(lstB, 0);
+	sa(lst_a, 0);
+	sb(lst_b, 0);
 	ft_putstr("ss\n");
 }
 
-void	rr(t_Dlist *lstA, t_Dlist *lstB)
+void	rr(t_Dlist *lst_a, t_Dlist *lst_b)
 {
-	ra(lstA, 0);
-	rb(lstB, 0);
+	ra(lst_a, 0);
+	rb(lst_b, 0);
 	ft_putstr("rr\n");
 }
 
-void	rrr(t_Dlist *lstA, t_Dlist *lstB)
+void	rrr(t_Dlist *lst_a, t_Dlist *lst_b)
 {
-	rra(lstA, 0);
-	rrb(lstB, 0);
+	rra(lst_a, 0);
+	rrb(lst_b, 0);
 	ft_putstr("rrr\n");
 }

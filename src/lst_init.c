@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:28:01 by evella            #+#    #+#             */
-/*   Updated: 2024/01/26 21:48:42 by evella           ###   ########.fr       */
+/*   Updated: 2024/02/07 19:48:28 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 t_Dlist	*ft_new_list(void)
 {
-	t_Dlist *list;
+	t_Dlist	*list;
 
 	list = (t_Dlist *)ft_calloc(sizeof(*list), 1);
 	list->first = NULL;
 	list->last = NULL;
 	list->len = 0;
-	return(list);
+	return (list);
 }
 
 void	ft_add_back(t_Dlist *list, int value)
 {
-	t_Dlist_node *node;
+	t_Dlist_node	*node;
 
 	node = (t_Dlist_node *)ft_calloc(sizeof(*node), 1);
 	node->value = value;
-	if(list->len == 0)
+	if (list->len == 0)
 	{
 		node->back = NULL;
 		list->first = node;
@@ -46,11 +46,11 @@ void	ft_add_back(t_Dlist *list, int value)
 
 void	ft_add_front(t_Dlist *list, int value)
 {
-	t_Dlist_node *node;
+	t_Dlist_node	*node;
 
 	node = (t_Dlist_node *)ft_calloc(sizeof(*node), 1);
 	node->value = value;
-	if(list->len == 0)
+	if (list->len == 0)
 	{
 		node->next = NULL;
 		list->last = node;
@@ -64,13 +64,14 @@ void	ft_add_front(t_Dlist *list, int value)
 	node->back = NULL;
 	list->len++;
 }
+
 int	ft_check_double(t_Dlist *lst)
 {
 	t_Dlist_node	*tmpnode;
 	t_Dlist_node	*node;
 
 	node = lst->first;
-	while(node)
+	while (node)
 	{
 		tmpnode = node->next;
 		while (tmpnode)
@@ -86,17 +87,16 @@ int	ft_check_double(t_Dlist *lst)
 
 int	ft_init_a(t_Dlist *lst, int argc, char **argv)
 {
-	int	i;
-	int	j;
-	char **tab;
-
+	int		i;
+	int		j;
+	char	**tab;
 
 	i = 1;
 	j = 0;
 	while (i < argc)
 	{
 		tab = ft_split(argv[i], ' ');
-		while(tab[j])
+		while (tab[j])
 		{
 			ft_add_back(lst, ft_atoi(tab[j]));
 			j++;
@@ -104,7 +104,10 @@ int	ft_init_a(t_Dlist *lst, int argc, char **argv)
 		j = 0;
 		i++;
 	}
-	if(ft_check_double(lst))
+	if (ft_check_double(lst))
+	{
+		write(2, "Error\n", 6);
 		return (0);
+	}
 	return (1);
 }

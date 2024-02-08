@@ -6,77 +6,54 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:27:55 by evella            #+#    #+#             */
-/*   Updated: 2024/01/26 21:53:17 by evella           ###   ########.fr       */
+/*   Updated: 2024/02/08 03:25:01 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void ft_tri3(t_Dlist *lstA , int *count)
+void	ft_cut_tri(int state, int *count, t_Dlist *lst_a)
 {
-	if (lstA->first->value > lstA->first->next->value
-	&& lstA->first->next->value > lstA->first->next->next->value)
+	if (state == 1)
 	{
-		sa(lstA, 1);
-		rra(lstA, 1);
+		sa(lst_a, 1);
+		rra(lst_a, 1);
 		*count += 1;
 	}
-	else if (lstA->first->value > lstA->first->next->value
-	&& lstA->first->next->value < lstA->first->next->next->value
-	&& lstA->first->next->next->value > lstA->first->value)
-		sa(lstA, 1);
-	else if (lstA->first->value > lstA->first->next->value
-	&& lstA->first->next->value < lstA->first->next->next->value
-	&& lstA->first->next->next->value < lstA->first->value)
-		ra(lstA, 1);
-	else if (lstA->first->value < lstA->first->next->value
-	&& lstA->first->next->value > lstA->first->next->next->value
-	&& lstA->first->next->next->value > lstA->first->value)
+	else
 	{
-		sa(lstA, 1);
-		ra(lstA, 1);
+		sa(lst_a, 1);
+		ra(lst_a, 1);
 		*count += 1;
 	}
-	else if (lstA->first->value < lstA->first->next->value
-	&& lstA->first->next->value > lstA->first->next->next->value
-	&& lstA->first->next->next->value < lstA->first->value)
-		rra(lstA, 1);
+}
+
+void	ft_tri3(t_Dlist *lst_a, int *count)
+{
+	if (lst_a->first->value > lst_a->first->next->value
+		&& lst_a->first->next->value > lst_a->first->next->next->value)
+		ft_cut_tri(1, count, lst_a);
+	else if (lst_a->first->value > lst_a->first->next->value
+		&& lst_a->first->next->value < lst_a->first->next->next->value
+		&& lst_a->first->next->next->value > lst_a->first->value)
+		sa(lst_a, 1);
+	else if (lst_a->first->value > lst_a->first->next->value
+		&& lst_a->first->next->value < lst_a->first->next->next->value
+		&& lst_a->first->next->next->value < lst_a->first->value)
+		ra(lst_a, 1);
+	else if (lst_a->first->value < lst_a->first->next->value
+		&& lst_a->first->next->value > lst_a->first->next->next->value
+		&& lst_a->first->next->next->value > lst_a->first->value)
+		ft_cut_tri(2, count, lst_a);
+	else if (lst_a->first->value < lst_a->first->next->value
+		&& lst_a->first->next->value > lst_a->first->next->next->value
+		&& lst_a->first->next->next->value < lst_a->first->value)
+		rra(lst_a, 1);
 	*count += 1;
 }
 
-int	ft_check_tri(t_Dlist *lstA)
-{
-	t_Dlist_node	*node;
-	int				tmp;
-
-	node = lstA->first;
-	while(node->next)
-	{
-		tmp = node->value;
-		node = node->next;
-		if (node->value < tmp)
-			return(0);
-	}
-	return(1);
-}
-
-int	ft_check_tri_rev(t_Dlist *lstB)
-{
-	t_Dlist_node	*node;
-	int				tmp;
-
-	node = lstB->first;
-	while(node->next)
-	{
-		tmp = node->value;
-		node = node->next;
-		if (node->value > tmp)
-			return(0);
-	}
-	return(1);
-}
-
-t_op	ft_check_nb_moove(int current, int target, int lstlen, int lst_target_len)
+t_op	ft_check_nb_moove(int current, int target \
+, int lstlen, int lst_target_len)
 {
 	t_op	op;
 	int		count;
@@ -85,179 +62,80 @@ t_op	ft_check_nb_moove(int current, int target, int lstlen, int lst_target_len)
 
 	state = -1;
 	count = 0;
-	op.r_current = 0;
-	op.rr_current = 0;
-	op.r_target = 0;
-	op.rr_target = 0;
-	op.target = target;
-	op.current = current;
-	if (current <= lstlen / 2)
-		op.r_current = current - 1;
-	else
-		op.rr_current = lstlen - current + 1;
-	if (target <= lst_target_len / 2)
-		op.r_target = target - 1;
-	else
-		op.rr_target = lst_target_len - target + 1;
+	op = ft_set_op(target, current);
+	ft_first_moove(&op, lst_target_len, lstlen);
 	tmp = op.r_current + op.rr_target + op.rr_current + op.r_target;
-	if((target - 1) < tmp && op.rr_current == 0)
+	if ((target - 1) < tmp && op.rr_current == 0)
 	{
 		count = target - 1;
 		state = 1;
 	}
 	if (lst_target_len - target + 1 < tmp && op.r_current == 0)
-	{
-		if (state != -1)
-		{
-			if(lst_target_len - target + 1 < count)
-			{
-				count = lst_target_len - target + 1;
-				state = 2;
-			}
-		}
-		else
-		{
-			count = lst_target_len - target + 1;
-			state = 2;
-		}
-	}
+		ft_state(&state, &op, &count, lst_target_len);
 	if (current - 1 < tmp && op.rr_target == 0)
-	{
-		if (state != -1)
-		{
-			if(current - 1 < count)
-			{
-				count = current - 1;
-				state = 3;
-			}
-		}
-		else
-		{
-			count = current - 1;
-			state = 3;
-		}
-	}
+		ft_state_2(&state, &op, &count);
 	if (lstlen - current + 1 < tmp && op.r_target == 0)
-	{
-		if (state != -1)
-		{
-			if(lstlen - current + 1 < count)
-				state = 4;
-		}
-		else
-			state = 4;
-	}
-	if (state == 1)
-	{
-		op.r_target = target - 1;
-		op.r_current = current - 1;
-		op.rr_target = 0;
-		op.rr_current = 0;
-	}
-	else if (state == 2)
-	{
-		op.rr_current = lstlen - current + 1;
-		op.rr_target = lst_target_len - target + 1;
-		op.r_current = 0;
-		op.r_target = 0;
-	}
-	else if (state == 3)
-	{
-		op.r_current = current - 1;
-		op.r_target = target - 1;
-		op.rr_current = 0;
-		op.rr_target = 0;
-	}
-	else if (state == 4)
-	{
-		op.rr_target = lst_target_len - target + 1;
-		op.rr_current = lstlen - current + 1;
-		op.r_target = 0;
-		op.r_current = 0;
-	}
-
-	/* if(target - 1 < (op.r_current + op.rr_target))
-	{
-
-		op.r_target = target - 1;
-		op.rr_target = 0;
-	}
-	else if(current - 1 < (op.rr_current + op.r_target))
-	{
-		op.r_current = current - 1;
-		op.rr_current = 0;
-	} */
-	if(op.r_current > op.r_target)
-		op.total = op.r_current;
-	else
-		op.total = op.r_target;
-	if(op.rr_current > op.rr_target)
-		op.total += op.rr_current;
-	else
-		op.total += op.rr_target;
+		ft_state_3(&state, &op, &count, lstlen);
+	ft_last_moove(&state, &op, lstlen, lst_target_len);
+	ft_last_moove_2(&state, &op, lstlen, lst_target_len);
+	ft_end_moove(&op);
 	return (op);
 }
 
-void	ft_turk_algo(t_Dlist *lstA, t_Dlist *lstB, int *count)
+void	ft_turk_algo(t_Dlist *lst_a, t_Dlist *lst_b, int *count)
 {
 	t_Dlist_node		*node;
 	t_op				moove;
 	t_op				tmpmoove;
 	int					i;
 
-
-	i = 2;
-	pb(lstA, lstB);
-	pb(lstA, lstB);
+	i = 1;
+	pb(lst_a, lst_b);
+	pb(lst_a, lst_b);
 	*count += 2;
-	while (lstA->len > 3)
+	while (lst_a->len > 3)
 	{
-		node = lstA->first->next;
-		moove = ft_check_nb_moove(1, ft_find_target(lstA->first->value, lstB), lstA->len, lstB->len);
-
-		while(node)
+		node = lst_a->first->next;
+		moove = ft_check_nb_moove(1, ft_find_target(lst_a->first->value, lst_b) \
+		, lst_a->len, lst_b->len);
+		while (node && ++i)
 		{
-			tmpmoove = ft_check_nb_moove(i, ft_find_target(node->value, lstB), lstA->len, lstB->len);
-			if(tmpmoove.total < moove.total)
+			tmpmoove = ft_check_nb_moove(i, ft_find_target(node->value, lst_b) \
+			, lst_a->len, lst_b->len);
+			if (tmpmoove.total < moove.total)
 				moove = tmpmoove;
 			node = node->next;
-			i++;
 		}
-		i = 2;
-		ft_pushA(lstA, lstB, moove, count);
+		i = 1;
+		ft_push_a(lst_a, lst_b, moove, count);
 	}
 }
 
 int	main(int argc, char **argv)
 {
-	t_Dlist *lstA;
-	t_Dlist *lstB;
-	static int count;
+	t_D_list	lsts;
+	static int	count;
 
+	if (argc == 1)
+		return (1);
 	count = 0;
-	lstA = ft_new_list();
-	lstB = ft_new_list();
-	if (!ft_init_a(lstA, argc, argv))
-		return(0);
-	if(ft_check_tri(lstA))
+	lsts.lst_a = ft_new_list();
+	lsts.lst_b = ft_new_list();
+	if (!ft_init_a(lsts.lst_a, argc, argv))
 		return (0);
-	//ft_print_lst(lstA, lstB);
-	if (lstA->len <= 3)
+	if (ft_check_tri(lsts.lst_a))
+		return (0);
+	if (lsts.lst_a->len <= 3)
 	{
-		if(lstA->len == 2)
-			sa(lstA, 1);
+		if (lsts.lst_a->len == 2)
+			sa(lsts.lst_a, 1);
 		else
-			ft_tri3(lstA, &count);
+			ft_tri3(lsts.lst_a, &count);
 	}
 	else
 	{
-		ft_turk_algo(lstA, lstB, &count);
-		ft_tri3(lstA, &count);
-		ft_merge(lstA, lstB, &count);
+		ft_turk_algo(lsts.lst_a, lsts.lst_b, &count);
+		ft_tri3(lsts.lst_a, &count);
+		ft_merge(lsts.lst_a, lsts.lst_b, &count);
 	}
-	//ft_print_lst(lstA, lstB);
-	//printf("count = %d\n", count);
-	//printf("%d\n", ft_check_tri(lstA));
 }
-
-
