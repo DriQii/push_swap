@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:29:43 by evella            #+#    #+#             */
-/*   Updated: 2024/02/08 20:49:39 by evella           ###   ########.fr       */
+/*   Updated: 2024/02/13 16:23:02 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,19 @@ void	*ft_freetabtab(char **tab)
 	free(tab[i]);
 	free (tab);
 	return (NULL);
+}
+
+int	ft_str_is_digit(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if ((!ft_isdigit(str[i]) && i > 0)
+			|| (!ft_isdigit(str[i]) && i == 0 && str[i] != '-'))
+			return (0);
+		i++;
+	}
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:04:45 by evella            #+#    #+#             */
-/*   Updated: 2024/02/08 00:57:52 by evella           ###   ########.fr       */
+/*   Updated: 2024/02/13 16:22:27 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,4 +109,19 @@ void	ft_push_a(t_Dlist *lst_a, t_Dlist *lst_b, t_op op, int *count)
 	while (op.rr_target-- > 0)
 		rrb(lst_b, 1);
 	pb(lst_a, lst_b);
+}
+
+int	ft_str_is_digit(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if ((!ft_isdigit(str[i]) && i > 0)
+			|| (!ft_isdigit(str[i]) && i == 0 && str[i] != '-'))
+			return (0);
+		i++;
+	}
+	return (1);
 }
