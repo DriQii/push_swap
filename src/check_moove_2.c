@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 03:19:35 by evella            #+#    #+#             */
-/*   Updated: 2024/02/08 03:19:52 by evella           ###   ########.fr       */
+/*   Updated: 2024/02/12 15:14:34 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_end_moove(t_op *op)
 
 void	ft_first_moove(t_op *op, int lst_target_len, int lstlen)
 {
-	if (op->current <= op->lstlen / 2)
+	if (op->current <= lstlen / 2)
 		op->r_current = op->current - 1;
 	else
 		op->rr_current = lstlen - op->current + 1;

@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:48:49 by evella            #+#    #+#             */
-/*   Updated: 2024/02/08 20:49:19 by evella           ###   ########.fr       */
+/*   Updated: 2024/02/13 16:16:07 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ int	main(int argc, char **argv)
 	if (argc == 1)
 		return (1);
 	lsts.lst_a = ft_new_list();
-	lsts.lst_b = ft_new_list();
 	if (!ft_init_a(lsts.lst_a, argc, argv))
-		return (0);
+		return (ft_freelst(lsts.lst_a), 0);
+	lsts.lst_b = ft_new_list();
 	op = get_next_line(0);
 	while (op)
 	{

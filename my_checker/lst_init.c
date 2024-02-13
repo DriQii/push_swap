@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:28:01 by evella            #+#    #+#             */
-/*   Updated: 2024/02/08 20:49:53 by evella           ###   ########.fr       */
+/*   Updated: 2024/02/13 16:15:11 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,19 @@ int	ft_check_double(t_Dlist *lst)
 	}
 	return (0);
 }
+int	ft_str_is_digit(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if ((!ft_isdigit(str[i]) && i > 0) || (!ft_isdigit(str[i]) && i == 0 && str[i] != '-'))
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 int	ft_init_a(t_Dlist *lst, int argc, char **argv)
 {
@@ -98,6 +111,8 @@ int	ft_init_a(t_Dlist *lst, int argc, char **argv)
 		tab = ft_split(argv[i], ' ');
 		while (tab[j])
 		{
+			if (!ft_str_is_digit(tab[j]))
+				return (ft_freetabtab(tab), write(2, "Error\n", 6), 0);
 			ft_add_back(lst, ft_atoi(tab[j]));
 			j++;
 		}
@@ -106,9 +121,6 @@ int	ft_init_a(t_Dlist *lst, int argc, char **argv)
 		ft_freetabtab(tab);
 	}
 	if (ft_check_double(lst))
-	{
-		write(2, "Error\n", 6);
-		return (0);
-	}
+		return (write(2, "Error\n", 6), 0);
 	return (1);
 }
