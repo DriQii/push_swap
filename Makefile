@@ -2,7 +2,7 @@ NAME = push_swap
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -g
+CFLAGS = -Wall -Wextra -Werror -g
 
 SRC =	src/main.c \
 		src/utils.c \

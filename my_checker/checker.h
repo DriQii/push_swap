@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:46:29 by evella            #+#    #+#             */
-/*   Updated: 2024/02/08 20:50:43 by evella           ###   ########.fr       */
+/*   Updated: 2024/02/13 16:27:19 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	ft_del_front(t_Dlist *lst);
 void	ft_del_back(t_Dlist *lst);
 int		ft_init_a(t_Dlist *lst, int argc, char **argv);
 int		ft_check_tri(t_Dlist *lst_a);
+int		ft_str_is_digit(char *str);
 void	*ft_freetabtab(char **tab);
 
 #endif
