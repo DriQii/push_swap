@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:28:01 by evella            #+#    #+#             */
-/*   Updated: 2024/02/13 16:21:05 by evella           ###   ########.fr       */
+/*   Updated: 2024/02/15 23:19:19 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,11 @@ int	ft_init_a(t_Dlist *lst, int argc, char **argv)
 	while (i < argc)
 	{
 		tab = ft_split(argv[i], ' ');
+		if (ft_strlen(argv[i]) == 0)
+			return (ft_freetabtab(tab), write(2, "Error\n", 6), 0);
 		while (tab[j])
 		{
-			if (!ft_str_is_digit(tab[j]))
+			if (!ft_str_is_digit(tab[j]) || !ft_check_int(tab[j]))
 				return (ft_freetabtab(tab), write(2, "Error\n", 6), 0);
 			ft_add_back(lst, ft_atoi(tab[j]));
 			j++;

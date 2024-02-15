@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 18:32:09 by evella            #+#    #+#             */
-/*   Updated: 2024/02/13 16:27:07 by evella           ###   ########.fr       */
+/*   Updated: 2024/02/15 23:19:04 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,6 @@ void	ft_first_moove(t_op *op, int lst_target_len, int lstlen);
 void	ft_end_moove(t_op *op);
 void	*ft_freetabtab(char **tab);
 int		ft_str_is_digit(char *str);
+int		ft_check_int(char *str);
 
 #endif

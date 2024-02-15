@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:28:12 by evella            #+#    #+#             */
-/*   Updated: 2024/02/12 15:31:39 by evella           ###   ########.fr       */
+/*   Updated: 2024/02/15 23:18:57 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,14 @@ void	ft_tri4(t_D_list *lsts, int *count)
 		ft_tri3(lsts->lst_a, count);
 	else if (lsts->lst_a->len == 2)
 		sa(lsts->lst_a, 1);
+}
+
+int	ft_check_int(char *str)
+{
+	long	nb;
+
+	nb = atol(str);
+	if (nb < -2147483648 || nb > 2147483647)
+		return (0);
+	return (1);
 }
