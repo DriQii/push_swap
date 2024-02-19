@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enzovella <enzovella@student.42.fr>        +#+  +:+       +#+        */
+/*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 17:01:17 by evella            #+#    #+#             */
-/*   Updated: 2023/12/05 09:12:21 by enzovella        ###   ########.fr       */
+/*   Updated: 2024/02/19 17:22:40 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static int	ft_check_end_line(char *buffer)
 	return (i);
 }
 
-static void	ft_write_rest(char rest[1024][BUFFER_SIZE + 1], char *buffer, int fd)
+static void	ft_write_rest(char rest[1024][BUFFER_SIZE + 1] \
+, char *buffer, int fd)
 {
 	int		i;
 	int		j;

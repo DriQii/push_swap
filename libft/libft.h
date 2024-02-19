@@ -6,13 +6,9 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 22:48:19 by evella            #+#    #+#             */
-/*   Updated: 2023/12/20 12:12:57 by evella           ###   ########.fr       */
+/*   Updated: 2024/02/19 17:27:05 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
-# endif
 
 #ifndef LIBFT_H
 # define LIBFT_H
@@ -24,6 +20,10 @@
 # include <stdarg.h>
 # include <stdint.h>
 # include <fcntl.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
 
 typedef struct s_list
 {
@@ -96,5 +96,5 @@ int		ft_putnbru(unsigned int n);
 int		ft_printf(const char *s, ...);
 int		ft_intlenn(int n);
 char	*get_next_line(int fd);
- 
+
 #endif
