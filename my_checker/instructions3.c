@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:28:12 by evella            #+#    #+#             */
-/*   Updated: 2024/02/08 20:57:04 by evella           ###   ########.fr       */
+/*   Updated: 2024/02/19 17:14:45 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,14 @@ void	rrr(t_Dlist *lst_a, t_Dlist *lst_b)
 {
 	rra(lst_a);
 	rrb(lst_b);
+}
+
+int	ft_check_int(char *str)
+{
+	long	nb;
+
+	nb = atol(str);
+	if (nb < -2147483648 || nb > 2147483647)
+		return (0);
+	return (1);
 }
