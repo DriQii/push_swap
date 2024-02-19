@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:53:53 by evella            #+#    #+#             */
-/*   Updated: 2024/02/08 20:56:45 by evella           ###   ########.fr       */
+/*   Updated: 2024/02/19 18:55:48 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,21 @@ void	rrb(t_Dlist *lst_b)
 		ft_add_front(lst_b, lst_b->last->value);
 		ft_del_back(lst_b);
 	}
+}
+
+char	*ft_trim_output(char *str)
+{
+	char		*op;
+	char		*tmp;
+
+	if (str)
+		free(str);
+	op = get_next_line(0);
+	tmp = op;
+	if (op)
+	{
+		op = ft_strtrim(op, "\n");
+		free(tmp);
+	}
+	return (op);
 }

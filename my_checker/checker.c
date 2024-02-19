@@ -6,7 +6,7 @@
 /*   By: evella <evella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:48:49 by evella            #+#    #+#             */
-/*   Updated: 2024/02/13 16:16:07 by evella           ###   ########.fr       */
+/*   Updated: 2024/02/19 19:22:05 by evella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,19 +82,20 @@ int	main(int argc, char **argv)
 	if (!ft_init_a(lsts.lst_a, argc, argv))
 		return (ft_freelst(lsts.lst_a), 0);
 	lsts.lst_b = ft_new_list();
-	op = get_next_line(0);
+	op = ft_trim_output(NULL);
 	while (op)
 	{
+		if (!ft_check_instructions(op))
+			return (ft_freelst(lsts.lst_a), free(lsts.lst_b), free(op) \
+			, write(2, "Error\n", 6), 1);
 		swap_check(&lsts, op);
 		rotate_check(&lsts, op);
 		push_check(&lsts, op);
-		free(op);
-		op = get_next_line(0);
+		op = ft_trim_output(op);
 	}
 	if (ft_check_tri(lsts.lst_a) && lsts.lst_b->len == 0)
 		ft_printf("OK\n");
 	else
 		ft_printf("KO\n");
-	ft_freelst(lsts.lst_a);
-	free(lsts.lst_b);
+	return (ft_freelst(lsts.lst_a), ft_freelst(lsts.lst_b), 0);
 }
